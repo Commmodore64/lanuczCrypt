@@ -8,7 +8,6 @@ import { z } from "zod";
 
 // Components
 import SigninComponent from "~/components/auth/signin";
-import { Button } from "~/components/ui/button";
 import { api } from "~/utils/api";
 
 const Signin: NextPage = () => {
@@ -63,15 +62,11 @@ const Signin: NextPage = () => {
       <Head>
         <title>Sign In</title>
       </Head>
-      <SigninComponent setData={setPersonalData} data={personalData} />
-      <Button
-        type="submit"
-        variant="outline"
-        className="w-full font-bold"
-        onClick={handleSignIn}
-      >
-        L o g i n
-      </Button>
+      <SigninComponent
+        setData={setPersonalData}
+        data={personalData}
+        handleSignIn={handleSignIn}
+      />
     </>
   );
 };

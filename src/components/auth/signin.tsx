@@ -3,9 +3,11 @@
 import type { FC } from "react";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
+import { Button } from "../ui/button";
 
 // interface formProps {}
-interface formProps {
+interface SigninComponentProps {
+  handleSignIn: () => void;
   data: {
     name: string;
     lastName: string;
@@ -15,7 +17,10 @@ interface formProps {
   };
   setData: (data: any) => void;
 }
-const Signin: FC<formProps> = ({ data, setData }) => {
+interface SigninComponentProps {
+  handleSignIn: () => void;
+}
+const Signin: FC<SigninComponentProps> = ({ data, setData, handleSignIn }) => {
   return (
     <>
       <div className="relative h-full w-full bg-[#18181B]">
@@ -110,6 +115,14 @@ const Signin: FC<formProps> = ({ data, setData }) => {
                     placeholder="Enter your password"
                   />
                 </div>
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="my-5 w-full py-2 font-bold text-black"
+                  onClick={handleSignIn}
+                >
+                  Sign in
+                </Button>
               </div>
             </form>
 
