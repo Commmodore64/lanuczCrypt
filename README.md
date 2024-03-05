@@ -1,13 +1,10 @@
-# Sistema de Gestión de Almacén
+# Sistema de Encriptación
 
-Este es un sistema de gestión de almacén desarrollado con Next.js, Prisma, tRPC y MySQL (t3app).
+Este es un sistema de encriptación desarrollado con Next.js, Prisma, tRPC y MySQL (t3app).
 
 ## Funcionalidades
 
-- Gestión de entrada y salida de productos en el almacén.
-- Control de inventario de materia prima de fábrica.
-- Interfaz de usuario intuitiva para operaciones en el almacén.
-- Seguimiento de movimientos de inventario y registros históricos.
+- Encriptar
 
 ## Requisitos del Sistema
 
@@ -19,11 +16,11 @@ Este es un sistema de gestión de almacén desarrollado con Next.js, Prisma, tRP
 
 1. Clona el repositorio:
 ```bash
-git clone https://github.com/tu-usuario/tu-proyecto.git
+git clone https://github.com/tu-usuario/lanuczCrypto.git
 ```
 2. Instala las dependencias:
 ```bash
-cd StockProject
+cd lanuczCrypto
 npm install
 ```
 3. Configura la base de datos MySQL en el archivo .env:
