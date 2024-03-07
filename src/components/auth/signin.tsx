@@ -1,6 +1,8 @@
 "use client";
 // import Link from "next/link";
+import Link from "next/link";
 import type { FC } from "react";
+import { Checkbox } from "~/components/ui/checkbox";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import { Button } from "../ui/button";
@@ -15,7 +17,7 @@ interface SigninComponentProps {
     email: string;
     password: string;
   };
-  setData: (data: any) => void;
+  setData: (data: unknown) => void;
 }
 interface SigninComponentProps {
   handleSignIn: () => void;
@@ -29,16 +31,16 @@ const Signin: FC<SigninComponentProps> = ({ data, setData, handleSignIn }) => {
         <div className="flex h-screen items-center justify-center bg-[#18181B]">
           <div className="relative">
             {/* Contenido de Swipe y Shelter */}
-            <div className="swipe mt-8 flex items-center justify-center p-4 text-5xl italic text-white">
-              swipe
-              <h2 className="main-text p-1 font-semibold">Shelter</h2>
+            <div className="swipe flex items-center justify-center p-4 text-5xl italic text-white">
+              Lanucz
+              <h2 className="main-text p-1 font-semibold">Crypt</h2>
             </div>
 
             {/* Fondo decorativo */}
             <div className="absolute left-1/2 top-1/2 h-32 w-32 -translate-x-1/2 -translate-y-1/2 transform rounded-full bg-white/15 opacity-45 blur-3xl lg:h-[16rem] lg:w-[16rem] lg:blur-[64px]"></div>
 
             {/* Formulario */}
-            <form className="mt-10 w-[350px]">
+            <form className="mt-7 w-[350px]">
               <div className="grid w-full items-center gap-4">
                 <div className="flex flex-col space-y-1.5">
                   <Label className="p-2 text-white" htmlFor="email">
@@ -124,17 +126,26 @@ const Signin: FC<SigninComponentProps> = ({ data, setData, handleSignIn }) => {
                   Sign in
                 </Button>
               </div>
+              <div className="flex items-center space-x-2 text-white">
+                <Checkbox className="bg-white" id="terms" />
+                <label
+                  htmlFor="terms"
+                  className=" text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  Accept terms and conditions
+                </label>
+              </div>
             </form>
 
             {/* Enlace al final de la pantalla */}
             <div className="mt-5 flex flex-row items-center justify-center">
               <p className="text-white">Already have an account?</p>
-              <a
+              <Link
                 href="/auth/login"
                 className="flex justify-center pl-2 font-semibold text-white"
               >
                 Log In
-              </a>
+              </Link>
             </div>
           </div>
         </div>

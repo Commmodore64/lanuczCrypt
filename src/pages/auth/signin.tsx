@@ -4,6 +4,7 @@ import type { NextPage } from "next";
 // Utils
 import Head from "next/head";
 import { useState } from "react";
+import { toast } from "sonner";
 import { z } from "zod";
 
 // Components
@@ -44,13 +45,14 @@ const Signin: NextPage = () => {
       try {
         const validatedData = validationSchema.parse(personalData);
         console.log("Datos validados:", validatedData);
+        toast.success("Usuario creado correctamente");
         // Crear usuario con Prisma
         const response = await mutation.mutateAsync(validatedData);
         if (response.status !== 201) {
           console.log("Respuesta del servidor:", response);
         }
       } catch (error) {
-        //toast.error("Datos incorrectos");
+        toast.error(error.message);
         console.log(error);
       }
     })().catch((error) => {

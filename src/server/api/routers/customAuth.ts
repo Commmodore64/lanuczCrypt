@@ -1,6 +1,6 @@
 import { TRPCError } from "@trpc/server";
 import { hash } from "argon2";
-import { toast } from "react-hot-toast";
+import { toast } from "sonner";
 import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "../trpc";
 
@@ -30,6 +30,7 @@ export const useCustomAuth = createTRPCRouter({
       });
 
       if (exists) {
+        toast("User already exists");
         throw new TRPCError({
           code: "CONFLICT",
           message: "User already exists.",
@@ -48,7 +49,7 @@ export const useCustomAuth = createTRPCRouter({
           //TyC: input.TyC,
         },
       });
-      toast.success("Account created successfully");
+      toast("Account created successfully");
 
       return {
         status: 201,

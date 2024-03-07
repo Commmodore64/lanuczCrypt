@@ -6,6 +6,7 @@ import type { FC } from "react";
 import { useState } from "react";
 import { Button } from "~/components/ui/button";
 import { CardFooter } from "~/components/ui/card";
+
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 
@@ -29,12 +30,9 @@ const Login: FC /*<formProps>*/ = ({}) => {
           <div className="relative">
             {/* Contenido de Swipe y Shelter */}
             <div className="swipe mt-8 flex items-center justify-center p-4 text-5xl italic text-white">
-              swipe
-              <h2 className="main-text p-1 font-semibold">Shelter</h2>
+              Lanucz
+              <h2 className="main-text p-1 font-semibold">Crypt</h2>
             </div>
-
-            {/* Fondo decorativo */}
-            <div className="absolute left-1/2 top-1/2 h-32 w-32 -translate-x-1/2 -translate-y-1/2 transform rounded-full bg-white/15 opacity-45 blur-3xl lg:h-[16rem] lg:w-[16rem] lg:blur-[64px]"></div>
 
             {/* Formulario */}
             <form className="mt-10 w-[350px]">
@@ -73,7 +71,7 @@ const Login: FC /*<formProps>*/ = ({}) => {
                   className="w-full font-bold"
                   onClick={handleSignIn}
                 >
-                  L o g i n
+                  Login
                 </Button>
               </CardFooter>
             </form>
