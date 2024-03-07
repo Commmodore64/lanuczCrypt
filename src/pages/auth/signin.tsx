@@ -53,8 +53,24 @@ const Signin: NextPage = () => {
           toast.success("Usuario creado correctamente");
         }
       } catch (error) {
-        const errorMessage = (error as Error).message;
-        toast.error(errorMessage);
+        if (error instanceof z.ZodError) {
+          // Si es un error de zod, muestra solo el primer mensaje de error
+          const firstErrorMessage =
+            error.errors[0]?.message ?? "Validation error";
+
+          // Verificar si el mensaje de error es específicamente para la longitud mínima de caracteres
+          if (
+            firstErrorMessage === "String must contain at least 3 character(s)"
+          ) {
+            toast.error("El valor debe contener al menos 3 caracteres.");
+          } else {
+            toast.error(firstErrorMessage);
+          }
+        } else {
+          // En caso contrario, muestra el mensaje de error genérico
+          const errorMessage = (error as Error).message;
+          toast.error(errorMessage);
+        }
         console.log(error);
       }
     })().catch((error) => {
