@@ -45,14 +45,16 @@ const Signin: NextPage = () => {
       try {
         const validatedData = validationSchema.parse(personalData);
         console.log("Datos validados:", validatedData);
-        toast.success("Usuario creado correctamente");
+
         // Crear usuario con Prisma
         const response = await mutation.mutateAsync(validatedData);
         if (response.status !== 201) {
           console.log("Respuesta del servidor:", response);
+          toast.success("Usuario creado correctamente");
         }
       } catch (error) {
-        toast.error(error.message);
+        const errorMessage = (error as Error).message;
+        toast.error(errorMessage);
         console.log(error);
       }
     })().catch((error) => {

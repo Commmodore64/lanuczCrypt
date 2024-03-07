@@ -33,7 +33,7 @@ const Signin: FC<SigninComponentProps> = ({ data, setData, handleSignIn }) => {
             {/* Contenido de Swipe y Shelter */}
             <div className="swipe flex items-center justify-center p-4 text-5xl italic text-white">
               Lanucz
-              <h2 className="main-text p-1 font-semibold">Crypt</h2>
+              <h2 className="main-text p-1 font-semibold">Shelter</h2>
             </div>
 
             {/* Fondo decorativo */}
