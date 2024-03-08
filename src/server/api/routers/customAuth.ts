@@ -18,7 +18,7 @@ export const useCustomAuth = createTRPCRouter({
           .regex(new RegExp(".*[a-z].*"))
           .regex(new RegExp(".*\\d.*"))
           .regex(new RegExp(".*[`~<>?,./!@#$%^&*()\\-_+=\"'|{}\\[\\];:\\\\].*"))
-          .min(8, "Must be at least 8 characters in length"),
+          .min(10, "Must be at least 10 characters in length"),
         //TyC: z.boolean(),
       }),
     )

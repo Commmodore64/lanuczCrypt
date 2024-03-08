@@ -1,5 +1,6 @@
 // Types
-import type { NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
+import type { Session } from "next-auth";
 
 // Utils
 import Head from "next/head";
@@ -9,6 +10,7 @@ import { z } from "zod";
 
 // Components
 import SigninComponent from "~/components/auth/signin";
+import { getServerAuthSession } from "~/server/auth";
 import { api } from "~/utils/api";
 
 const Signin: NextPage = () => {
@@ -36,7 +38,7 @@ const Signin: NextPage = () => {
         new RegExp(".*[`~<>?,./!@#$%^&*()\\-_+=\"'|{}\\[\\];:\\\\].*"),
         "Debe contener un carácter especial",
       )
-      .min(8, "Must be at least 8 characters in length"),
+      .min(10, "Must be at least 10 characters in length"),
   });
 
   const handleSignIn = () => {
@@ -90,18 +92,18 @@ const Signin: NextPage = () => {
     </>
   );
 };
-// export const getServerSideProps: GetServerSideProps = async (ctx) => {
-//   const session = await getServerAuthSession(ctx);
-//   if (session && typeof session === "object" && !Array.isArray(session)) {
-//     return {
-//       redirect: {
-//         destination: "/dashboard",
-//         permanent: false,
-//       },
-//     };
-//   }
-//   return {
-//     props: { session: session ? ({ ...session } as Session) : null },
-//   };
-
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const session = await getServerAuthSession(ctx);
+  if (session && typeof session === "object" && !Array.isArray(session)) {
+    return {
+      redirect: {
+        destination: "/dashboard",
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: { session: session ? ({ ...session } as Session) : null },
+  };
+};
 export default Signin;
