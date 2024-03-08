@@ -3,7 +3,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 interface RequestBody {
   ciphertext: string;
-  key: string;
+  keyD: string;
 }
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -12,15 +12,15 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   }
 
   try {
-    const { ciphertext, key }: RequestBody = req.body as RequestBody;
+    const { ciphertext, keyD }: RequestBody = req.body as RequestBody;
+    console.log(req.body);
 
-    if (!ciphertext || !key) {
+    if (!ciphertext || !keyD) {
       return res
         .status(400)
         .json({ error: "Se requiere un texto cifrado y una clave" });
     }
-
-    const bytes = CryptoJS.AES.decrypt(ciphertext, key);
+    const bytes = CryptoJS.AES.decrypt(ciphertext, keyD);
     const decryptedMessage: string = bytes.toString(CryptoJS.enc.Utf8);
 
     res.status(200).json({ decryptedMessage });

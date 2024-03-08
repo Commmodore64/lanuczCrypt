@@ -52,7 +52,7 @@ const Dashboard: FC = ({}) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ ciphertext: hash, key }),
+        body: JSON.stringify({ ciphertext: hash, keyD }),
       });
       const data: { decryptedMessage: string } = await response.json();
       setDecryptedMessage(data.decryptedMessage);
