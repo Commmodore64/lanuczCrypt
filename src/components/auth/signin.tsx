@@ -6,6 +6,16 @@ import { Checkbox } from "~/components/ui/checkbox";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import { Button } from "../ui/button";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "../ui/alert-dialog";
 
 // interface formProps {}
 interface SigninComponentProps {
@@ -133,7 +143,160 @@ const Signin: FC<SigninComponentProps> = ({ data, setData, handleSignIn }) => {
                   htmlFor="terms"
                   className=" text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                 >
-                  Accept terms and conditions
+                  Accept{" "}
+                  <AlertDialog>
+                    <AlertDialogTrigger>
+                      terms and conditions
+                    </AlertDialogTrigger>
+                    <AlertDialogContent style={{ overflow: 'auto' }}>
+                      <AlertDialogHeader>
+                        <AlertDialogTitle>Aviso de Privacidad</AlertDialogTitle>
+                        <AlertDialogDescription>Aviso de Privacidad de Bill-Lucs, SOFIPO</AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <ul className="list-decimal list-outside pl-4">
+                        <li>
+                          <b>Identidad y domicilio del responsable</b> 
+                          <br />
+                          Bill-Lucs, SOFIPO, con domicilio en Av. Montes
+                          Americanos #9501, Col. Sector 35, C.P. 31216,
+                          Chihuahua, Chih., México., es el responsable del uso y
+                          protección de sus datos personales.
+                        </li>
+                        <li>
+                          <b>Datos personales que se recaban</b>
+                          <br />
+                          Para las operaciones que usted realice con nosotros se
+                          recabarán los siguientes datos personales:
+                          <ul className="list-disc list-inside">
+                            <li>
+                              Datos de identificación y contacto: Nombre,
+                              dirección, teléfono, correo electrónico.
+                            </li>
+                            <li>
+                              Datos financieros: Ingresos, historial crediticio.
+                            </li>
+                            <li>
+                              Datos de identificación oficial: Copia de
+                              identificación oficial, CURP, RFC.
+                            </li>
+                          </ul>
+                        </li>
+                        <li>
+                          <b>Finalidad del tratamiento de datos personales</b> <br />
+                          Sus datos personales serán utilizados para las
+                          siguientes finalidades:
+                          <ul className="list-disc list-inside">
+                            <li>
+                              Evaluar su elegibilidad para préstamos bancarios.
+                            </li>
+                            <li>
+                              Crear y administrar su cuenta en nuestra
+                              plataforma.
+                            </li>
+                            <li>
+                              Cumplir con las obligaciones legales y
+                              regulatorias aplicables.
+                            </li>
+                          </ul>
+                        </li>
+                        <li>
+                          <b>Transferencias de datos personales</b> <br />
+                          Sus datos personales pueden ser compartidos con
+                          autoridades financieras y fiscales en México, así como
+                          con otras entidades dentro del grupo financiero para
+                          fines de cumplimiento regulatorio y ofrecimiento de
+                          productos.
+                        </li>
+                        <li>
+                          <b>Derechos ARCO</b>
+                          <br />
+                          Usted tiene derecho a Acceder, Rectificar y Cancelar
+                          sus datos personales, así como a Oponerse al uso de
+                          los mismos o solicitar la limitación de su uso
+                          (Derechos ARCO).
+                        </li>
+                        <li>
+                          <b>Revocación del consentimiento</b> <br />
+                          Puede revocar el consentimiento que, en su caso, nos
+                          haya otorgado, sin embargo, es importante que tenga en
+                          cuenta que no en todos los casos podremos atender su
+                          solicitud o concluir el uso de forma inmediata.
+                        </li>
+                        <li>
+                          <b>Cambios al aviso de privacidad</b> <br />
+                          Nos reservamos el derecho de efectuar en cualquier
+                          momento modificaciones o actualizaciones al presente
+                          aviso de privacidad.
+                        </li>
+                        <li>
+                          <b>Contacto</b> <br />
+                          Para cualquier duda o aclaración respecto a sus datos
+                          personales, puede contactarnos en
+                          tecnologias@utch.edu.mx ó 614 432 20 00.
+                        </li>
+                        <li>
+                          <b>Transparencia de los Datos</b> <br />
+                          En Bill-Lucs, SOFIPO, nos comprometemos a mantener una
+                          total transparencia en el manejo de sus datos
+                          personales. Esto significa que nos esforzamos por
+                          asegurarnos de que usted esté informado sobre qué
+                          datos personales recabamos, cómo los utilizamos, con
+                          quién los compartimos, y cómo puede ejercer sus
+                          derechos sobre estos datos. <br />
+                          Nos comprometemos a:
+                          <ul className="list-disc list-inside">
+                            <li>
+                              Informarle claramente sobre los datos que
+                              recabamos y las finalidades específicas para las
+                              cuales se utilizan.
+                            </li>
+                            <li>
+                              Obtener su consentimiento de manera explícita para
+                              el tratamiento de sus datos personales, excepto en
+                              los casos que la ley permita otro modo de
+                              consentimiento.
+                            </li>
+                            <li>
+                              Permitirle el acceso a sus datos personales que
+                              poseemos, así como a corregirlos si son inexactos
+                              o incompletos.
+                            </li>
+                            <li>
+                              Ofrecerle la opción de oponerse al tratamiento de
+                              sus datos personales para finalidades específicas,
+                              en los términos que la ley establezca.
+                            </li>
+                            <li>
+                              Mantener medidas de seguridad adecuadas para
+                              proteger sus datos personales contra el acceso no
+                              autorizado o ilegal, la pérdida accidental, la
+                              destrucción o el daño.
+                            </li>
+                          </ul>
+                          Creemos que la transparencia es la base para construir
+                          una relación de confianza con nuestros usuarios y
+                          clientes. Por ello, nos esforzamos en comunicar de
+                          manera clara y accesible todas las prácticas
+                          relacionadas con sus datos personales. Si tiene
+                          preguntas sobre cómo manejamos sus datos personales o
+                          desea obtener más información, no dude en
+                          contactarnos.
+                        </li>
+                        <li>
+                          <b>Uso de Cookies y Tecnologías de Rastreo</b> <br />
+                          En Bill-Lucs, SOFIPO, empleamos cookies y otras
+                          tecnologías de rastreo para mejorar la experiencia de
+                          nuestros usuarios en nuestra plataforma y para
+                          recopilar datos que nos ayudan a entender mejor cómo
+                          se utilizan nuestros servicios. <br /> Para más
+                          información sobre cómo utilizamos cookies y sus
+                          opciones respecto a estas, no dude en contactarnos.
+                        </li>
+                      </ul>
+                      <span className={"text-right"}>Fecha de última actualización: 31/01/2024.</span>
+                      <AlertDialogCancel>Cerrar</AlertDialogCancel>
+                    </AlertDialogContent>
+                  </AlertDialog>
                 </label>
               </div>
             </form>
