@@ -30,6 +30,8 @@ const Dashboard: FC = ({}) => {
   useEffect(() => {
     setIsClient(true);
   }, []);
+  const account = useSession();
+  const email = account.data?.user.email;
   const handleEncrypt = async () => {
     try {
       const response = await fetch("/api/encrypt", {
@@ -37,7 +39,7 @@ const Dashboard: FC = ({}) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ message, key }),
+        body: JSON.stringify({ message, key, email }),
       });
       const data: ResponseData = await response.json();
       setCiphertext(data.ciphered ?? "");
@@ -54,7 +56,7 @@ const Dashboard: FC = ({}) => {
         },
         body: JSON.stringify({ ciphertext: hash, keyD }),
       });
-      const data: { decryptedMessage: string } = await response.json();
+      const data: { decryptedmessages: string } = await response.json();
       setDecryptedMessage(data.decryptedMessage);
     } catch (error) {
       console.error("Error desencriptando el mensaje:", error);

@@ -21,6 +21,7 @@ const Signin: NextPage = () => {
     phone: "",
     email: "",
     password: "",
+    messages: "",
   });
 
   //Validate Schema
@@ -29,6 +30,7 @@ const Signin: NextPage = () => {
     lastName: z.string().min(3).max(255),
     phone: z.string().min(3).max(255),
     email: z.string().email(),
+    messages: z.string(),
     password: z
       .string()
       .regex(new RegExp(".*[A-Z].*"), "Debe contener una mayúscula")

@@ -12,6 +12,7 @@ export const useCustomAuth = createTRPCRouter({
         lastName: z.string(),
         phone: z.string().max(12),
         email: z.string().email(),
+        messages: z.string(),
         password: z
           .string()
           .regex(new RegExp(".*[A-Z].*"))
@@ -46,6 +47,7 @@ export const useCustomAuth = createTRPCRouter({
           phone: input.phone,
           email: input.email,
           password: hashedPassword,
+          messages: input.messages,
           //TyC: input.TyC,
         },
       });

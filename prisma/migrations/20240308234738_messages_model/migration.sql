@@ -38,6 +38,7 @@ CREATE TABLE `User` (
     `emailVerified` DATETIME(3) NULL,
     `image` VARCHAR(191) NULL,
     `password` VARCHAR(191) NULL,
+    `messages` VARCHAR(191) NOT NULL,
 
     UNIQUE INDEX `User_email_key`(`email`),
     PRIMARY KEY (`id`)

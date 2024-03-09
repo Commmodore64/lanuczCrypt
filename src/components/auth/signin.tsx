@@ -16,6 +16,7 @@ interface SigninComponentProps {
     phone: string;
     email: string;
     password: string;
+    messages: string;
   };
   setData: (data: unknown) => void;
 }
