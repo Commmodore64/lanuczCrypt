@@ -74,15 +74,18 @@ const Dashboard: FC = ({}) => {
   return (
     <div className="flex h-screen items-center justify-center">
       <div className="absolute h-full w-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)]"></div>
-      <div className="relative mx-auto flex h-[35rem] max-w-md flex-col items-start border border-black/[0.2] p-4 shadow-2xl dark:border-white/[0.2] ">
+      <div className="relative mx-auto flex h-[40rem] max-w-md flex-col items-start border border-black/[0.2] p-4 shadow-2xl dark:border-white/[0.2] ">
         <h1 className="p-2 text-2xl font-bold">
           Bienvenido de vuelta {user.data?.user.name} !
         </h1>
-        <h1 className="my-3 font-semibold">
+        <p className="text-md ml-2 font-semibold text-gray-500">
+          Encriptación simetrica
+        </p>
+        <h1 className="my-3 ml-2 font-semibold">
           TU MENSAJE ENCRIPTADO: {encryptResponse.ciphertext ?? "Esperando..."}
         </h1>
-        <h1 className="my-3 font-semibold">
-          TU MENSAJE ENCRIPTADO: {decryptedMessage}
+        <h1 className="my-3 ml-2 font-semibold">
+          TU MENSAJE DESENCRIPTADO: {decryptedMessage}
         </h1>
         <Icon className="absolute -left-3 -top-3 h-6 w-6 text-black dark:text-white" />
         <Icon className="absolute -bottom-3 -left-3 h-6 w-6 text-black dark:text-white" />
@@ -149,7 +152,7 @@ const Dashboard: FC = ({}) => {
                     onChange={(e) => setHash(e.target.value)}
                   />
                   <Input
-                    type="text"
+                    type="password"
                     placeholder="Clave"
                     value={keyD}
                     onChange={(e) => setKeyD(e.target.value)}
