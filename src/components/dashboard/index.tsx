@@ -1,4 +1,5 @@
 "use client";
+import { PrismaClient } from "@prisma/client";
 import { useSession } from "next-auth/react";
 import { useEffect, useState, type FC } from "react";
 import {
@@ -15,6 +16,8 @@ import { Button } from "../ui/button";
 import { EvervaultCard, Icon } from "../ui/evervault-card";
 import { Input } from "../ui/input";
 
+const prisma = new PrismaClient();
+
 const Dashboard: FC = ({}) => {
   const [message, setMessage] = useState("");
   const [key, setKey] = useState("");
@@ -23,8 +26,12 @@ const Dashboard: FC = ({}) => {
   const [isClient, setIsClient] = useState(false);
   const [decryptedMessage, setDecryptedMessage] = useState("");
   const [hash, setHash] = useState("");
+  const [encryptResponse, setEncryptResponse] = useState<{
+    ciphertext?: string;
+  }>({});
 
   interface ResponseData {
+    updatedUser: any;
     ciphered?: string;
   }
   useEffect(() => {
@@ -43,6 +50,7 @@ const Dashboard: FC = ({}) => {
       });
       const data: ResponseData = await response.json();
       setCiphertext(data.ciphered ?? "");
+      setEncryptResponse({ ciphertext: data.updatedUser?.messages as string });
     } catch (error) {
       console.error("Error encriptando el mensaje:", error);
     }
@@ -57,7 +65,7 @@ const Dashboard: FC = ({}) => {
         body: JSON.stringify({ ciphertext: hash, keyD }),
       });
       const data: { decryptedmessages: string } = await response.json();
-      setDecryptedMessage(data.decryptedMessage);
+      setDecryptedMessage(data.decryptedMessage as string);
     } catch (error) {
       console.error("Error desencriptando el mensaje:", error);
     }
@@ -66,9 +74,15 @@ const Dashboard: FC = ({}) => {
   return (
     <div className="flex h-screen items-center justify-center">
       <div className="absolute h-full w-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)]"></div>
-      <div className="relative mx-auto flex h-[30rem] max-w-sm flex-col items-start border border-black/[0.2] p-4 shadow-2xl dark:border-white/[0.2] ">
+      <div className="relative mx-auto flex h-[35rem] max-w-md flex-col items-start border border-black/[0.2] p-4 shadow-2xl dark:border-white/[0.2] ">
         <h1 className="p-2 text-2xl font-bold">
           Bienvenido de vuelta {user.data?.user.name} !
+        </h1>
+        <h1 className="my-3 font-semibold">
+          TU MENSAJE ENCRIPTADO: {encryptResponse.ciphertext ?? "Esperando..."}
+        </h1>
+        <h1 className="my-3 font-semibold">
+          TU MENSAJE ENCRIPTADO: {decryptedMessage}
         </h1>
         <Icon className="absolute -left-3 -top-3 h-6 w-6 text-black dark:text-white" />
         <Icon className="absolute -bottom-3 -left-3 h-6 w-6 text-black dark:text-white" />
@@ -116,7 +130,7 @@ const Dashboard: FC = ({}) => {
                 </AlertDialogContent>
               </AlertDialog>
             </div>
-            <div className="ml-[150px] mt-4">
+            <div className="ml-[215px] mt-4">
               <AlertDialog>
                 <AlertDialogTrigger asChild>
                   <Button>Desencriptar</Button>

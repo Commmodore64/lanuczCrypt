@@ -34,7 +34,7 @@ export default async function handler(
       where: { email: email },
       data: { messages: ciphertext },
     });
-
+    console.log(ciphertext);
     res.status(200).json({
       message: "Mensaje cifrado guardado correctamente en el usuario",
       updatedUser,
