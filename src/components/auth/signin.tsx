@@ -5,10 +5,8 @@ import type { FC } from "react";
 import { Checkbox } from "~/components/ui/checkbox";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
-import { Button } from "../ui/button";
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
@@ -16,6 +14,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "../ui/alert-dialog";
+import { Button } from "../ui/button";
 
 // interface formProps {}
 interface SigninComponentProps {
@@ -148,14 +147,16 @@ const Signin: FC<SigninComponentProps> = ({ data, setData, handleSignIn }) => {
                     <AlertDialogTrigger>
                       terms and conditions
                     </AlertDialogTrigger>
-                    <AlertDialogContent style={{ overflow: 'auto' }}>
+                    <AlertDialogContent style={{ overflow: "auto" }}>
                       <AlertDialogHeader>
                         <AlertDialogTitle>Aviso de Privacidad</AlertDialogTitle>
-                        <AlertDialogDescription>Aviso de Privacidad de Bill-Lucs, SOFIPO</AlertDialogDescription>
+                        <AlertDialogDescription>
+                          Aviso de Privacidad de Bill-Lucs, SOFIPO
+                        </AlertDialogDescription>
                       </AlertDialogHeader>
-                      <ul className="list-decimal list-outside pl-4">
+                      <ul className="list-outside list-decimal pl-4">
                         <li>
-                          <b>Identidad y domicilio del responsable</b> 
+                          <b>Identidad y domicilio del responsable</b>
                           <br />
                           Bill-Lucs, SOFIPO, con domicilio en Av. Montes
                           Americanos #9501, Col. Sector 35, C.P. 31216,
@@ -167,7 +168,7 @@ const Signin: FC<SigninComponentProps> = ({ data, setData, handleSignIn }) => {
                           <br />
                           Para las operaciones que usted realice con nosotros se
                           recabarán los siguientes datos personales:
-                          <ul className="list-disc list-inside">
+                          <ul className="list-inside list-disc">
                             <li>
                               Datos de identificación y contacto: Nombre,
                               dirección, teléfono, correo electrónico.
@@ -182,10 +183,11 @@ const Signin: FC<SigninComponentProps> = ({ data, setData, handleSignIn }) => {
                           </ul>
                         </li>
                         <li>
-                          <b>Finalidad del tratamiento de datos personales</b> <br />
+                          <b>Finalidad del tratamiento de datos personales</b>{" "}
+                          <br />
                           Sus datos personales serán utilizados para las
                           siguientes finalidades:
-                          <ul className="list-disc list-inside">
+                          <ul className="list-inside list-disc">
                             <li>
                               Evaluar su elegibilidad para préstamos bancarios.
                             </li>
@@ -244,7 +246,7 @@ const Signin: FC<SigninComponentProps> = ({ data, setData, handleSignIn }) => {
                           quién los compartimos, y cómo puede ejercer sus
                           derechos sobre estos datos. <br />
                           Nos comprometemos a:
-                          <ul className="list-disc list-inside">
+                          <ul className="list-inside list-disc">
                             <li>
                               Informarle claramente sobre los datos que
                               recabamos y las finalidades específicas para las
@@ -293,7 +295,9 @@ const Signin: FC<SigninComponentProps> = ({ data, setData, handleSignIn }) => {
                           opciones respecto a estas, no dude en contactarnos.
                         </li>
                       </ul>
-                      <span className={"text-right"}>Fecha de última actualización: 31/01/2024.</span>
+                      <span className={"text-right"}>
+                        Fecha de última actualización: 31/01/2024.
+                      </span>
                       <AlertDialogCancel>Cerrar</AlertDialogCancel>
                     </AlertDialogContent>
                   </AlertDialog>

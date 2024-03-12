@@ -13,6 +13,11 @@ import {
 } from "../ui/alert-dialog";
 import { Button } from "../ui/button";
 import { EvervaultCard, Icon } from "../ui/evervault-card";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "../ui/hover-card";
 import { Input } from "../ui/input";
 
 const Dashboard: FC = ({}) => {
@@ -22,6 +27,7 @@ const Dashboard: FC = ({}) => {
   const [ciphertext, setCiphertext] = useState("");
   const [isClient, setIsClient] = useState(false);
   const [decryptedMessage, setDecryptedMessage] = useState("");
+  const [publicKey, setPublicKey] = useState("");
   const [hash, setHash] = useState("");
   const [encryptResponse, setEncryptResponse] = useState<{
     ciphertext?: string;
@@ -38,16 +44,24 @@ const Dashboard: FC = ({}) => {
   const email = account.data?.user.email;
   const handleEncrypt = async () => {
     try {
-      const response = await fetch("/api/encrypt", {
+      const privateKeyPem = ""; // Declare privateKeyPem variable
+      const publicKeyPem = ""; // Declare publicKeyPem variable
+
+      const response = await fetch("/api/encryptAs", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ message, key, email }),
+        body: JSON.stringify({
+          message,
+          key,
+          email,
+        }),
       });
       const data: ResponseData = await response.json();
       setCiphertext(data.ciphered ?? "");
       setEncryptResponse({ ciphertext: data.updatedUser?.messages as string });
+      setPublicKey(data.publicKeyPem);
     } catch (error) {
       console.error("Error encriptando el mensaje:", error);
     }
@@ -78,9 +92,14 @@ const Dashboard: FC = ({}) => {
         <h1 className="my-3 ml-2 font-semibold">
           TU MENSAJE ENCRIPTADO: {encryptResponse.ciphertext ?? "Esperando..."}
         </h1>
-        <h1 className="my-3 ml-2 font-semibold">
-          TU MENSAJE DESENCRIPTADO: {decryptedMessage}
-        </h1>
+        <HoverCard>
+          <HoverCardTrigger asChild>
+            <Button variant="link">PUBLIC KEY</Button>
+          </HoverCardTrigger>
+          <HoverCardContent className="w-[700px]">
+            <p>{publicKey ?? "No se encontro llave"}</p>
+          </HoverCardContent>
+        </HoverCard>
         <Icon className="absolute -left-3 -top-3 h-6 w-6 text-black dark:text-white" />
         <Icon className="absolute -bottom-3 -left-3 h-6 w-6 text-black dark:text-white" />
         <Icon className="absolute -right-3 -top-3 h-6 w-6 text-black dark:text-white" />
