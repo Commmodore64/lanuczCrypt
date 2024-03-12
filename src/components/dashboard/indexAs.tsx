@@ -22,6 +22,8 @@ import { Input } from "../ui/input";
 
 const Dashboard: FC = ({}) => {
   const [message, setMessage] = useState("");
+  const [privateKey, setPrivateKey] = useState("");
+  const [publicKeyPem, setPublicKeyPem] = useState("");
   const [key, setKey] = useState("");
   const [keyD, setKeyD] = useState("");
   const [ciphertext, setCiphertext] = useState("");
@@ -34,8 +36,9 @@ const Dashboard: FC = ({}) => {
   }>({});
 
   interface ResponseData {
-    updatedUser: any;
+    encryptedMessage?: string;
     ciphered?: string;
+    privateKey?: string;
   }
   useEffect(() => {
     setIsClient(true);
@@ -44,9 +47,6 @@ const Dashboard: FC = ({}) => {
   const email = account.data?.user.email;
   const handleEncrypt = async () => {
     try {
-      const privateKeyPem = ""; // Declare privateKeyPem variable
-      const publicKeyPem = ""; // Declare publicKeyPem variable
-
       const response = await fetch("/api/encryptAs", {
         method: "POST",
         headers: {
@@ -69,15 +69,17 @@ const Dashboard: FC = ({}) => {
   };
   const handleDecrypt = async () => {
     try {
-      const response = await fetch("/api/decrypt", {
+      const response = await fetch("/api/decryptAs", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ ciphertext: hash, keyD }),
+        body: JSON.stringify({ publicKey, privateKey, ciphertext: hash, keyD }),
       });
       const data: { decryptedmessages: string } = await response.json();
       setDecryptedMessage(data.decryptedMessage as string);
+      setPrivateKey(data.privateKey);
+      setPublicKeyPem(data.publicKey);
     } catch (error) {
       console.error("Error desencriptando el mensaje:", error);
     }
@@ -88,7 +90,7 @@ const Dashboard: FC = ({}) => {
       <div className="absolute h-full w-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)]"></div>
       <div className="relative mx-auto flex h-[40rem] max-w-md flex-col items-start border border-black/[0.2] p-4 shadow-2xl dark:border-white/[0.2] ">
         <h1 className="p-2 text-2xl font-bold">
-          Bienvenido de vuelta {user.data?.user.name} !
+          Bienvenido de vuelta {user.data?.user.name} ! 🔐
         </h1>
         <HoverCard>
           <HoverCardTrigger asChild>
@@ -97,6 +99,16 @@ const Dashboard: FC = ({}) => {
           <HoverCardContent className="w-[700px]">
             <p className="whitespace-normal break-all">
               {encryptResponse.ciphertext ?? "Esperando..."}
+            </p>
+          </HoverCardContent>
+        </HoverCard>
+        <HoverCard>
+          <HoverCardTrigger asChild>
+            <Button variant="link">TU MENSAJE DESENCRIPTADO:</Button>
+          </HoverCardTrigger>
+          <HoverCardContent className="w-[700px]">
+            <p className="whitespace-normal break-all">
+              {decryptedMessage ?? "Esperando..."}
             </p>
           </HoverCardContent>
         </HoverCard>
@@ -116,7 +128,7 @@ const Dashboard: FC = ({}) => {
         <EvervaultCard className="bg-white" text="LanuczCrypt" />
 
         <h2 className="mt-4 text-xl font-bold text-gray-700 dark:text-white">
-          Encripta tus mensajes de una manera sencilla y segura !
+          Encripta tus mensajes de una manera sencilla y segura ! 🔑
         </h2>
         {/* <p className="mt-4 rounded-full border border-black/[0.2] px-2 py-0.5 text-sm font-light text-black dark:border-white/[0.2] dark:text-white">
           Watch me hover
@@ -171,6 +183,18 @@ const Dashboard: FC = ({}) => {
                     placeholder="Hash cifrado"
                     value={hash}
                     onChange={(e) => setHash(e.target.value)}
+                  />
+                  <Input
+                    type="text"
+                    placeholder="Private Key"
+                    value={privateKey}
+                    onChange={(e) => setPrivateKey(e.target.value)}
+                  />
+                  <Input
+                    type="text"
+                    placeholder="Public Key"
+                    value={publicKeyPem}
+                    onChange={(e) => setPublicKeyPem(e.target.value)}
                   />
                   <Input
                     type="password"

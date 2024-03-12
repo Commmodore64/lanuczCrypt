@@ -1,13 +1,11 @@
-import { PrismaClient } from "@prisma/client";
 import type { NextApiRequest, NextApiResponse } from "next";
 import forge, { pki } from "node-forge";
-
-const prisma = new PrismaClient();
 
 interface RequestBody {
   ciphertext: string;
   email: string;
   privateKey: string;
+  publicKey: string; // Agregar la clave pública
 }
 
 export default async function handler(
@@ -19,33 +17,34 @@ export default async function handler(
   }
 
   try {
-    const { ciphertext, email, privateKey }: RequestBody =
+    const { ciphertext, privateKey, publicKey }: RequestBody =
       req.body as RequestBody;
-    if (!ciphertext || !email || !privateKey) {
+    console.log(ciphertext, privateKey, publicKey);
+    if (!ciphertext || !privateKey || !publicKey) {
       return res.status(400).json({
         error:
-          "Se requiere el texto cifrado, el correo electrónico y la clave privada",
+          "Se requiere el texto cifrado, el correo electrónico, la clave privada y la clave pública",
       });
     }
 
-    // Convertir la clave privada de formato PEM a un objeto pki.PrivateKey
+    // Convertir la clave privada y pública de formato PEM a objetos pki.PrivateKey y pki.PublicKey
     const privateKeyObj: pki.PrivateKey =
       forge.pki.privateKeyFromPem(privateKey);
 
-    // Decifrar el mensaje con la clave privada
+    // Decifrar el mensaje con la clave privada y la clave pública
     const decryptedMessage: string = privateKeyObj.decrypt(
       forge.util.decode64(ciphertext),
+      "RSA-OAEP", // Utilizar el mismo algoritmo utilizado para cifrar
+      {
+        md: forge.md.sha256.create(),
+      },
     );
 
-    // Actualizar el campo de mensaje descifrado en la base de datos
-    const updatedUser = await prisma.user.update({
-      where: { email: email },
-      data: { decryptedMessage: decryptedMessage },
-    });
+    console.log(decryptedMessage);
 
     res.status(200).json({
       message: "Mensaje descifrado guardado correctamente en el usuario",
-      updatedUser,
+      decryptedMessage,
     });
   } catch (error) {
     console.error(
