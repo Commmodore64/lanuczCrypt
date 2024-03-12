@@ -60,8 +60,9 @@ const Dashboard: FC = ({}) => {
       });
       const data: ResponseData = await response.json();
       setCiphertext(data.ciphered ?? "");
-      setEncryptResponse({ ciphertext: data.updatedUser?.messages as string });
+      setEncryptResponse({ ciphertext: data.encryptedMessage as string });
       setPublicKey(data.publicKeyPem);
+      console.log(data);
     } catch (error) {
       console.error("Error encriptando el mensaje:", error);
     }
@@ -89,15 +90,22 @@ const Dashboard: FC = ({}) => {
         <h1 className="p-2 text-2xl font-bold">
           Bienvenido de vuelta {user.data?.user.name} !
         </h1>
-        <h1 className="my-3 ml-2 font-semibold">
-          TU MENSAJE ENCRIPTADO: {encryptResponse.ciphertext ?? "Esperando..."}
-        </h1>
+        <HoverCard>
+          <HoverCardTrigger asChild>
+            <Button variant="link">TU MENSAJE ENCRIPTADO:</Button>
+          </HoverCardTrigger>
+          <HoverCardContent className="w-[700px]">
+            <p className="whitespace-normal break-all">
+              {encryptResponse.ciphertext ?? "Esperando..."}
+            </p>
+          </HoverCardContent>
+        </HoverCard>
         <HoverCard>
           <HoverCardTrigger asChild>
             <Button variant="link">PUBLIC KEY</Button>
           </HoverCardTrigger>
           <HoverCardContent className="w-[700px]">
-            <p>{publicKey ?? "No se encontro llave"}</p>
+            <p className="text-center">{publicKey ?? "No se encontro llave"}</p>
           </HoverCardContent>
         </HoverCard>
         <Icon className="absolute -left-3 -top-3 h-6 w-6 text-black dark:text-white" />
